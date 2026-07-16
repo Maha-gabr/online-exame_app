@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'config/di/di.dart';
+import 'config/services/shared_prefs_service.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  configureDependencies();
+  await ScreenUtil.ensureScreenSize();
+  await SharedPrefsService.init();
   runApp(const MyApp());
 }
 
