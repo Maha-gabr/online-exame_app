@@ -25,5 +25,6 @@ class AppStrings {
   static const String dontHaveAnAccount = "Don't have an account?";
   static const String alreadyHaveAnAccount = 'Already have an account?';
   static const String welcomeBack ='Welcome Back!';
+  static const String accountCreatedSuccessfully = 'Account created successfully! Please sign in.';
 
 }
