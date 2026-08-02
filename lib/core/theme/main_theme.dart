@@ -70,7 +70,7 @@ import 'app_text_style.dart';
       ),
       labelStyle: AppTextStyle.reg12BorderGrey,
       hintStyle: AppTextStyle.reg14lightGrey,
-      errorStyle: AppTextStyle.reg12BorderGrey.copyWith(color: AppColors.red,fontSize: 10.sp),),
+      errorStyle: AppTextStyle.errorText,),
     elevatedButtonTheme:  ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(double.infinity, 48.h),

@@ -11,17 +11,17 @@ class ErrorExtractors {
         case DioExceptionType.sendTimeout:
         case DioExceptionType.receiveTimeout:
         case DioExceptionType.transformTimeout:
-          return 'Connection timeout, please try again.';
+          return ErrorConstants.connectionTimeout;
         case DioExceptionType.connectionError:
-          return 'No internet connection, please check your network.';
+          return ErrorConstants.noInternetConnection;
         case DioExceptionType.badCertificate:
-          return 'Invalid certificate, please try again later.';
+          return ErrorConstants.invalidCertificate;
         case DioExceptionType.cancel:
-          return 'Request was cancelled.';
+          return ErrorConstants.requestCancelled;
         case DioExceptionType.badResponse:
           return _extractServerMessage(error.response?.statusCode,error.response?.data);
         default:
-          return 'Something went wrong, please check your connection.';
+          return ErrorConstants.connectionError;
       }
     } else {
       return ErrorConstants.somethingWentWrong;

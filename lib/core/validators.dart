@@ -1,73 +1,88 @@
+import 'constants/validation_constant.dart';
+
 class AppValidators {
   AppValidators._();
 
+  static final _emailRegex = RegExp(
+    r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+  );
+  static final _uppercaseRegex = RegExp(r'[A-Z]');
+  static final _lowercaseRegex = RegExp(r'[a-z]');
+  static final _numberRegex = RegExp(r'[0-9]');
+  static final _specialRegex = RegExp(r'[#?!@$%^&*-]');
+  static final _usernameRegex = RegExp(r'^[a-zA-Z0-9,.-]+$');
+  static final _egyptianPhoneRegex = RegExp(r'^01[0-2,5][0-9]{8}$');
+
   static String? validateEmail(String? val) {
-    RegExp emailRegex = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
     if (val == null || val.isEmpty) {
-      return 'Email is required';
-    }else if (emailRegex.hasMatch(val) == false) {
-      return 'Enter Valid Email';
-    } else {
-      return null;
+      return ValidationConstants.emailRequired;
     }
-  }
 
+    if (!_emailRegex.hasMatch(val)) {
+      return ValidationConstants.invalidEmail;
+    }
+
+    return null;
+  }
   static String? validatePassword(String? val) {
-    // final regex = RegExp(
-    //   r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$',
-    // );
     if (val == null || val.isEmpty) {
-      return 'Password is required';
-    }    if (val.length < 8) {
-      return 'Password must be at least 8 characters';
+      return ValidationConstants.passwordRequired;
     }
 
-    if (!RegExp(r'[A-Z]').hasMatch(val)) {
-      return 'Password must contain an uppercase letter';
+    if (val.length < 8) {
+      return ValidationConstants.passwordMinLength;
     }
 
-    if (!RegExp(r'[a-z]').hasMatch(val)) {
-      return 'Password must contain a lowercase letter';
+    if (!_uppercaseRegex.hasMatch(val)) {
+      return ValidationConstants.passwordUppercase;
     }
 
-    if (!RegExp(r'[0-9]').hasMatch(val)) {
-      return 'Password must contain a number';
+    if (!_lowercaseRegex.hasMatch(val)) {
+      return ValidationConstants.passwordLowercase;
     }
 
-    if (!RegExp(r'[#?!@$%^&*-]').hasMatch(val)) {
-      return 'Password must contain a special character';
-    } else {
-      return null;
+    if (!_numberRegex.hasMatch(val)) {
+      return ValidationConstants.passwordNumber;
     }
+
+    if (!_specialRegex.hasMatch(val)) {
+      return ValidationConstants.passwordSpecialCharacter;
+    }
+
+    return null;
   }
-
-  static String? validateConfirmPassword(String? val, String? password) {
+  static String? validateConfirmPassword(
+      String? val,
+      String? password,
+      ) {
     if (val == null || val.isEmpty) {
-      return 'This Field Is Required';
-    } else if (val != password) {
-      return 'Passwords do not match';
-    } else {
-      return null;
+      return ValidationConstants.fieldRequired;
     }
+
+    if (val != password) {
+      return ValidationConstants.passwordsDoNotMatch;
+    }
+
+    return null;
   }
 
   static String? validateUsername(String? val) {
-    RegExp usernameRegex = RegExp(r'^[a-zA-Z0-9,.-]+$');
     if (val == null || val.isEmpty) {
-      return 'This Field is required';
-    } else if (!usernameRegex.hasMatch(val)) {
-      return 'Enter valid Name';
-    } else {
-      return null;
+      return ValidationConstants.fieldRequired;
     }
+
+    if (!_usernameRegex.hasMatch(val)) {
+      return ValidationConstants.invalidUsername;
+    }
+
+    return null;
   }
   static String? validateFullName(String? val) {
     if (val == null || val.isEmpty) {
-      return 'FullName is required';
-    } else {
-      return null;
+      return ValidationConstants.fullNameRequired;
     }
+
+    return null;
   }
 
 
@@ -84,21 +99,22 @@ class AppValidators {
   // }
 
   static String? validatePhoneNumber(String? val) {
-    if (val == null || val.trim().isEmpty) {
-      return 'Phone number is required';
+    final phone = val?.trim();
+
+    if (phone == null || phone.isEmpty) {
+      return ValidationConstants.phoneRequired;
     }
 
-    if (int.tryParse(val.trim()) == null) {
-      return 'Enter numbers only';
+    if (int.tryParse(phone) == null) {
+      return ValidationConstants.numbersOnly;
     }
 
-    if (val.trim().length != 11) {
-      return 'Phone number must be 11 digits';
+    if (phone.length != 11) {
+      return ValidationConstants.phoneLength;
     }
 
-    final regex = RegExp(r'^01[0-2,5]{1}[0-9]{8}$');
-    if (!regex.hasMatch(val.trim())) {
-      return 'Enter a valid Egyptian phone number';
+    if (!_egyptianPhoneRegex.hasMatch(phone)) {
+      return ValidationConstants.invalidEgyptianPhone;
     }
 
     return null;

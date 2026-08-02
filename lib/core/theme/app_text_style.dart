@@ -33,5 +33,10 @@ abstract class AppTextStyle {
       fontSize: 16.sp,
       fontWeight: FontWeight.w400,
       color: AppColors.primary);
+  static TextStyle get errorText => TextStyle(
+    fontSize: 10.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColors.red,
+  );
 
 }
